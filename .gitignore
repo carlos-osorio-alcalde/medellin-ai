@@ -1,0 +1,11 @@
+# Pycache folders
+__pycache__/
+
+# Environment folder
+venv/
+
+# Audio files
+*.wav
+
+# Qdrant Storage
+qdrant_storage/

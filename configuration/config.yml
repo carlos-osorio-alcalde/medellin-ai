@@ -1,0 +1,11 @@
+s3:
+  bucket: "medellin-ai"
+  path: "audio/"
+
+local:
+  audios: "data/audio/"
+  metadata: "data/metadata/esc50.csv"
+
+vectordb:
+  client: "http://localhost:6333"
+  collection: "medellin-ai-vectors"

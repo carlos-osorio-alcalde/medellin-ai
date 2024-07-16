@@ -1,0 +1,6 @@
+boto3
+pyyaml
+msclap
+qdrant-client
+pandas
+isort
