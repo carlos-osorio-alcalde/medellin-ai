@@ -5,9 +5,9 @@ from typing import Callable, Dict, List
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 
-from rag.data import DataToUpsert
-from rag.embeddings import CLAPModality
-from rag.logger import logger
+from rag.core.data import DataToUpsert
+from rag.core.embeddings import CLAPModality
+from rag.core.logger import logger
 
 
 class QdrantWrapper:
@@ -41,10 +41,14 @@ class QdrantWrapper:
             embedding = self._embeddings_function(
                 modality=CLAPModality.AUDIO, audio_paths=[value]
             )
+            embedding_type = "audio"
         elif isinstance(value, str) and not os.path.exists(value):
             embedding = self._embeddings_function(
                 modality=CLAPModality.TEXT, texts_list=[value]
             )
+            embedding_type = "text"
+
+        logger.info(f"Computing {embedding_type} embeddings for {value}")
 
         return embedding
 

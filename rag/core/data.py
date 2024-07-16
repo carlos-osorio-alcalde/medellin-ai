@@ -1,8 +1,10 @@
-from typing import Dict, Optional, Union, Generator
-import pandas as pd
 import os
-from configuration.load import config
 from dataclasses import dataclass
+from typing import Dict, Generator, Optional, Union
+
+import pandas as pd
+
+from configuration.load import config
 
 
 @dataclass
