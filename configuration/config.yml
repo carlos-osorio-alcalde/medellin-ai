@@ -4,8 +4,18 @@ s3:
 
 local:
   audios: "data/audio/"
-  metadata: "data/metadata/esc50.csv"
+  images: "data/images/"
+  metadata_audios: "data/metadata/esc50.csv"
+
+huggingface:
+  images_dataset_path: "Francesco/animals-ij5d2"
+  image_text_model: "openai/clip-vit-base-patch32"
 
 vectordb:
   client: "http://localhost:6333"
-  collection: "medellin-ai-vectors"
+  collection_audio: "medellin-ai-audio-vectors"
+  collection_image: "medellin-ai-image-vectors"
+
+llm:
+  id: "llama3-70b-8192"
+  temperature: 1.0

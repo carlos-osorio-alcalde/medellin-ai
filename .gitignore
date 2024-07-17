@@ -9,3 +9,8 @@ venv/
 
 # Qdrant Storage
 qdrant_storage/
+
+# Image files
+*.png
+*.jpg
+*.jpeg

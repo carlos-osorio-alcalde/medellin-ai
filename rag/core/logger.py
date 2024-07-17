@@ -1,7 +1,7 @@
-from logging import DEBUG, Formatter, StreamHandler, getLogger
+from logging import DEBUG, Formatter, Logger, StreamHandler, getLogger
 
 
-def get_logger(name: str) -> getLogger:
+def get_logger(name: str) -> Logger:
     """Get a logger object."""
     logger = getLogger(name)
     logger.setLevel(DEBUG)

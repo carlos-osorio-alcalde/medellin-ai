@@ -4,3 +4,8 @@ msclap
 qdrant-client
 pandas
 isort
+streamlit
+groq
+python-dotenv
+transformers
+datasets
