@@ -10,6 +10,7 @@ local:
 huggingface:
   images_dataset_path: "Francesco/animals-ij5d2"
   image_text_model: "openai/clip-vit-base-patch32"
+  image_caption_model: "Salesforce/blip-image-captioning-base"
 
 vectordb:
   client: "http://localhost:6333"

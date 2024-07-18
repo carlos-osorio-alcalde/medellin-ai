@@ -7,7 +7,13 @@ from dotenv import load_dotenv
 from groq import Groq
 from msclap import CLAP
 from PIL import Image
-from transformers import AutoImageProcessor, AutoModel, AutoTokenizer
+from transformers import (
+    AutoImageProcessor,
+    AutoModel,
+    AutoTokenizer,
+    BlipForConditionalGeneration,
+    AutoProcessor,
+)
 
 from configuration.load import config
 
@@ -102,19 +108,27 @@ def create_embeddings_image(
         )
 
 
-def create_caption_audio(audio_path: Union[str, List[str]]) -> str:
+def create_caption(modality: Modalities, path: Union[str, List[str]]) -> str:
     """Create caption for the given audio."""
-    model_caption = CLAP(version="clapcap")
-    return model_caption.generate_caption(audio_path)
+    if modality == Modalities.AUDIO:
+        model = CLAP(version="clapcap")
+        caption = model.generate_caption([path])[0]
+    elif modality == Modalities.IMAGE:
+        processor = AutoProcessor.from_pretrained(
+            config["huggingface"]["image_caption_model"]
+        )
+        model = BlipForConditionalGeneration.from_pretrained(
+            config["huggingface"]["image_caption_model"]
+        )
+        image = Image.open(path)
+        inputs = processor(images=image, return_tensors="pt")
+        output = model.generate(**inputs)
+        caption = processor.decode(output[0], skip_special_tokens=True)
+
+    return caption
 
 
 if __name__ == "__main__":
-    path = "data/images/image_0.png"
-    text_embeddings = create_embeddings_image(
-        modality=Modalities.TEXT, texts_list="Hi everyone"
-    )
-    image_embeddings = create_embeddings_image(
-        modality=Modalities.IMAGE, image_paths=path
-    )
-
-    print("Size: ", len(text_embeddings), len(image_embeddings))
+    path = "data/audio_test/test_4.wav"
+    caption = create_caption(Modalities.AUDIO, path)
+    print(caption)

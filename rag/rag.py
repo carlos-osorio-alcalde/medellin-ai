@@ -5,7 +5,7 @@ from qdrant_client.http import models
 
 from configuration.load import config
 from rag.core.data import DataToUpsert
-from rag.core.models import Model, create_caption_audio, llm_client
+from rag.core.models import Model, create_caption, llm_client
 from rag.core.vectordb import QdrantWrapper
 
 
@@ -62,7 +62,7 @@ def search_similar_items(
 
 def create_text_from_audio(audio_path: str):
     """Create text from audio using the clapclap model"""
-    caption = create_caption_audio([audio_path])
+    caption = create_caption([audio_path])
 
     completion = llm_client.chat.completions.create(
         model=config["llm"]["id"],
