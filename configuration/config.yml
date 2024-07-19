@@ -6,9 +6,12 @@ local:
   audios: "data/audio/"
   images: "data/images/"
   metadata_audios: "data/metadata/esc50.csv"
+  image_file_extension: ".png"
+  audio_file_extension: ".wav"
 
 huggingface:
-  images_dataset_path: "Francesco/animals-ij5d2"
+  images_dataset_path: "Isamu136/big-animal-dataset"
+  audios_dataset_path: "DynamicSuperb/AnimalClassification_WaveSource-Test"
   image_text_model: "openai/clip-vit-base-patch32"
   image_caption_model: "Salesforce/blip-image-captioning-base"
 

@@ -10,9 +10,9 @@ from PIL import Image
 from transformers import (
     AutoImageProcessor,
     AutoModel,
+    AutoProcessor,
     AutoTokenizer,
     BlipForConditionalGeneration,
-    AutoProcessor,
 )
 
 from configuration.load import config
@@ -112,7 +112,8 @@ def create_caption(modality: Modalities, path: Union[str, List[str]]) -> str:
     """Create caption for the given audio."""
     if modality == Modalities.AUDIO:
         model = CLAP(version="clapcap")
-        caption = model.generate_caption([path])[0]
+        caption = model.generate_caption([path], temperature=0.01)[0]
+
     elif modality == Modalities.IMAGE:
         processor = AutoProcessor.from_pretrained(
             config["huggingface"]["image_caption_model"]

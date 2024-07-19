@@ -3,9 +3,8 @@ from typing import Generator, List
 from qdrant_client.conversions import common_types as types
 from qdrant_client.http import models
 
-from configuration.load import config
 from rag.core.data import DataToUpsert
-from rag.core.models import Model, create_caption, llm_client
+from rag.core.models import Model
 from rag.core.vectordb import QdrantWrapper
 
 
@@ -58,25 +57,3 @@ def search_similar_items(
     )
 
     return search_results
-
-
-def create_text_from_audio(audio_path: str):
-    """Create text from audio using the clapclap model"""
-    caption = create_caption([audio_path])
-
-    completion = llm_client.chat.completions.create(
-        model=config["llm"]["id"],
-        messages=[
-            {
-                "role": "system",
-                "content": "Your job is to create a story based on the caption.",  # noqa
-            },
-            {
-                "role": "user",
-                "content": f"This is the caption: {caption[0]}. Give me only the story. Don't mention anything else. Also, don't mention the caption directly. The story must be very short.",  # noqa
-            },
-        ],
-        temperature=config["llm"]["temperature"],
-    )
-
-    return completion.choices[0].message.content

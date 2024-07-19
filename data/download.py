@@ -22,7 +22,7 @@ def search_audios(category: Optional[str] = None) -> Generator:
             yield key
 
 
-def download_audios(category: Optional[str] = None) -> None:
+def download_audios_from_s3(category: Optional[str] = None) -> None:
     """Download all audio files from the specified category."""
     audios = search_audios(category)
 
@@ -55,6 +55,37 @@ def download_images() -> None:
             pass
 
 
+def download_audios() -> None:
+    """Download all audio files from the specified dataset from HuggingFace."""
+    from scipy.io.wavfile import write
+
+    # Load the dataset from HuggingFace
+    dataset = load_dataset(config["huggingface"]["audios_dataset_path"])
+
+    # Ensure the target directory exists
+    target_dir = config["local"]["audios"]
+    os.makedirs(target_dir, exist_ok=True)
+
+    # Save each audio to the target directory
+    for i, example in enumerate(dataset["test"]):
+        try:
+            print(f"Saving audio {i}")
+            audio = example["audio"]
+            audio_array = audio["array"]
+            sampling_rate = audio["sampling_rate"]
+
+            # Convert the array to an audio object
+            write(
+                os.path.join(target_dir, f"audio_{i}.wav"),
+                sampling_rate,
+                audio_array,
+            )
+            break
+        except Exception as e:
+            print(f"Error saving audio {i}: {e}")
+            pass
+
+
 if __name__ == "__main__":
     # Download all audio files from the specified category
-    download_images()
+    download_audios()
