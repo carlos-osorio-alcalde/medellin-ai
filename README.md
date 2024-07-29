@@ -12,7 +12,7 @@ git clone https://github.com/carlos-osorio-alcalde/medellin-ai
 
 ### 2. Crear el ambiente
 ```bash
-python -m venv venv && . venv/bin/scripts && pip install -r requirements.txt
+python -m venv venv && . venv/bin/activate && pip install -r requirements.txt
 ```
 
 ### 3. Descargar las imágenes
