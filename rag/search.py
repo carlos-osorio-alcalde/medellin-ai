@@ -26,4 +26,3 @@ if __name__ == "__main__":
         ],
         value=args.value,
     )
-    print(search_results)

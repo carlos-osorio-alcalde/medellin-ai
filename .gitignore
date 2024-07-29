@@ -11,6 +11,6 @@ venv/
 qdrant_storage/
 
 # Image files
-*.png
-*.jpg
-*.jpeg
+data/images/*.png
+data/image_test/*.jpg
+data/images/*.jpeg

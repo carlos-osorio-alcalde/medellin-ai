@@ -87,5 +87,8 @@ def download_audios() -> None:
 
 
 if __name__ == "__main__":
-    # Download all audio files from the specified category
-    download_audios()
+    # Download all audio files from S3 bucket
+    download_audios_from_s3()
+
+    # Download the images from the HuggingFace dataset
+    download_images()

@@ -132,4 +132,3 @@ def create_caption(modality: Modalities, path: Union[str, List[str]]) -> str:
 if __name__ == "__main__":
     path = "data/audio_test/test_4.wav"
     caption = create_caption(Modalities.AUDIO, path)
-    print(caption)
